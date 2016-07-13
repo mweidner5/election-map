@@ -12,21 +12,44 @@
 
     <script>
       jQuery(document).ready(function () {
-        jQuery('#vmap').vectorMap({
-          map: 'usa_en',
-          enableZoom: true,
-          showTooltip: true,
-          selectedColor: null,
-          hoverColor: null,
-          colors: {
+
+        var colors1 = {
             mo: '#C9DFAF',
             fl: '#C9DFAF',
-            or: '#C9DFAF'
-          },
-          onRegionClick: function(event, code, region){
-            event.preventDefault();
-          }
+            or: '#666'
+        };
+
+        var colors = [50];
+
+        //asynchronously grab the json, then call the vectorMap func to create map
+        jQuery.getJSON("json/1792.json", function(data) {
+          var colors = data.colors;
+          console.log(colors1);
+          console.log(colors);
+
+          jQuery('#vmap').vectorMap({
+            map: 'usa_en',
+            enableZoom: true,
+            showTooltip: true,
+            selectedColor: null,
+            hoverColor: null,
+            colors,
+            onRegionClick: function(event, code, region){
+              event.preventDefault();
+            }
+          });
+
+          //testing the vectorMap('set') function
+          function sleep (time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+          };
+
+          sleep(5000).then(() => {
+              jQuery('#vmap').vectorMap('set', 'colors', {mo: '#C9DFAF', fl: '#C9DFAF', or: '#C9DFAF'});
+          });
+
         });
+
       });
     </script>
   </head>

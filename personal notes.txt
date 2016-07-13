@@ -1,0 +1,4 @@
+Colors:
+
+Not part of US: #d5d5d5
+Washington (no party): #66ff00

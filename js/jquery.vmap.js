@@ -165,12 +165,12 @@ var JQVMap = function (params) {
     code = code.toLowerCase();
 
     if (e.type === 'mouseover') {
-      jQuery(params.container).trigger(regionMouseOverEvent, [code, mapData.paths[code].name] + "test1");
+      jQuery(params.container).trigger(regionMouseOverEvent, [code, mapData.paths[code].name]);
       if (!regionMouseOverEvent.isDefaultPrevented()) {
         map.highlight(code, containerPath);
       }
       if (params.showTooltip) {
-        map.label.text(mapData.paths[code].name + "test3");
+        map.label.text(mapData.paths[code].name + " - Washington");
         jQuery(params.container).trigger(labelShowEvent, [map.label, code]);
 
         if (!labelShowEvent.isDefaultPrevented()) {
@@ -183,7 +183,7 @@ var JQVMap = function (params) {
       map.unhighlight(code, containerPath);
 
       map.label.hide();
-      jQuery(params.container).trigger('regionMouseOut.jqvmap', [code, mapData.paths[code].name] + "test2");
+      jQuery(params.container).trigger('regionMouseOut.jqvmap', [code, mapData.paths[code].name]);
     }
   });
 
@@ -344,7 +344,7 @@ JQVMap.maps = {};
   jQuery.fn.vectorMap = function (options) {
 
     var defaultParams = {
-      map: 'world_en',
+      map: 'usa_en',
       backgroundColor: '#a5bfdd',
       color: '#f4f3f0',
       hoverColor: '#c9dfaf',
@@ -364,6 +364,7 @@ JQVMap.maps = {};
     if (options === 'addMap') {
       JQVMap.maps[arguments[1]] = arguments[2];
     } else if (options === 'set' && apiParams[arguments[1]]) {
+      console.log("map[set" + arguments[1].charAt(0).toUpperCase() + arguments[1].substr(1) + "]");
       map['set' + arguments[1].charAt(0).toUpperCase() + arguments[1].substr(1)].apply(map, Array.prototype.slice.call(arguments, 2));
     } else if (typeof options === 'string' &&
       typeof map[options] === 'function') {
